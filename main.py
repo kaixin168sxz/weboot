@@ -7,7 +7,7 @@ import os
 
 client = OpenAI(api_key="<your-apikey>", base_url="https://api.deepseek.com")
 
-with open("./Weboot提示词.txt", "r") as f:
+with open("./Weboot提示词.txt", "r", encoding="UTF-8") as f:
     system_role = f.read()
 
 ai_msg = [{"role": "system", "content": system_role}, ]
