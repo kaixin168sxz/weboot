@@ -3,6 +3,7 @@ import pyautogui
 import pyperclip
 
 wx = WeChat()
+
 def send(who: list[str], msg: str):  # 查询发送对象
     # 获取会话列表
     wx.GetSessionList()
@@ -17,7 +18,6 @@ def listen(listen_list: list[str]):
         wx.AddListenChat(who=i)
 
 def scan():
-    # 然后调用`AddListenChat`方法添加监听对象，其中可选参数`savepic`为是否保存新消息图片
     msgs = wx.GetListenMessage()
     for chat in msgs:
         one_msgs = msgs.get(chat)  # 获取消息内容
@@ -35,7 +35,7 @@ def scan():
 
             elif msg.type == 'self':
                 print(f'<{msg.sender.center(10, "-")}>：{msg.content}')
-                return msg.sender.replace('Self', '文件传输助手'), msg.content
+                # return msg.sender.replace('Self', '文件传输助手'), msg.content
 
             elif msg.type == 'time':
                 print(f'\n【时间消息】{msg.time}')
