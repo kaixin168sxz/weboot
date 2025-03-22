@@ -7,7 +7,7 @@ from ollama import chat
 def _window_enum_callback(hwnd, wildcard):
     """
     Pass to win32gui.EnumWindows() to check all the opened windows
-    把想要置顶的窗口放到最前面，并最大化
+    把想要置顶的窗口放到最前面
     """
     if re.match(wildcard, str(win32gui.GetWindowText(hwnd))) is not None:
         win32gui.BringWindowToTop(hwnd)
