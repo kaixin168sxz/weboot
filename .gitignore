@@ -2,3 +2,4 @@ pyproject.toml
 uv.lock
 .venv
 __pycache__
+.idea
