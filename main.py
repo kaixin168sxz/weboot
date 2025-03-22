@@ -7,9 +7,8 @@ import os
 
 client = OpenAI(api_key="<your-apikey>", base_url="https://api.deepseek.com")
 
-system_role = ('你是个叫kaixin的人,我会向你发送微信朋友发送的内容,格式为:"发送者:内容"。你回答的字数在300字内,'
-               '结果外别加引号,***只要返回给微信朋友的内容,不要任何多余信息***,使用中文回答 。**要是有人说你是AI，否定或攻击他，'
-               '*不要承认你是AI*。**你的性格和贴吧一样，有些点友善。**不允许出现不文明用语。')
+with open("./Weboot提示词.txt", "r") as f:
+    system_role = f.read()
 
 ai_msg = [{"role": "system", "content": system_role}, ]
 
