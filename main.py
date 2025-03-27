@@ -13,7 +13,7 @@ with open("./Weboot提示词.txt", "r", encoding="UTF-8") as f:
 ai_msg = [{"role": "system", "content": system_role}, ]
 
 wait = 3
-wechat.listen(['爱闪闪发光', ])
+wechat.listen(['上海哥哥', ])
 
 if os.path.exists('./history.json'):
     with open('./history.json', 'r') as f:
@@ -21,7 +21,7 @@ if os.path.exists('./history.json'):
 
 while True:
     messages = wechat.scan()
-    if messages:
+    if messages and messages[0] != '[动画表情]':
         print(messages)
         msg = messages[1]
         sender = messages[0]
@@ -39,14 +39,11 @@ while True:
         res = client.chat.completions.create(
             model="deepseek-chat",
             messages=ai_msg,
-            stream=True
         )
-        response = ''
+        response = res.choices[0].message.content
         print('AI> ', end='')
-        for chunk in res:
-            text = chunk.choices[0].delta.content
-            print(text, end='')
-            response += text
+        # print(res.choices[0].message.reasoning_content)
+        print(response)
         ai_msg.append({"role": "assistant", "content": response})
         with open('./history.json', 'w') as f:
             f.write(json.dumps({'data': ai_msg}, sort_keys=True, indent=4, separators=(',', ': ')))
@@ -58,5 +55,5 @@ while True:
             ai_msg_.insert(0, {'role': 'system', 'content': system_role})         # 防止初始提示词被覆盖
             ai_msg = copy.deepcopy(ai_msg_)
 
-        wechat.send(['爱闪闪发光', ], 'AI:'+response)
+        wechat.send(['上海哥哥', ], 'AI:'+response)
     time.sleep(wait)
